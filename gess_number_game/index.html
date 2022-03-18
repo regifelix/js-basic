@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+</head>
+
+<body>
+    <div class="guessNumberGame">
+
+        <p class="guesses"> </p>
+        <p class="lastResult"></p>
+        <p class="lowOrHigth"></p>
+
+
+        <label for="quessField">Digite seu palpite:</label>
+        <input type="text" id="guessField" class="guessField" \>
+        <input type="submit" value="Enviar" class="guessSend" >
+    </div>
+    <script>
+        var myNumber = randomNumberGenerate();
+        var myGuesses = document.querySelector('.guesses');
+        var lastResult = document.querySelector('.lastResult');
+        var lowOrHigth = document.querySelector('.lowOrHigth');
+
+        var guessSend = document.querySelector('.guessSend');
+        var guessField = document.querySelector('.guessField');
+
+        var guessCount = 1;
+        var startButton;
+
+        guessField.focus();
+
+        guessField.style.backgroundColor = 'yellow';
+        guessField.style.fontSize = '200%';
+        guessField.style.padding = '10px';
+        guessField.style.boxShadow = '3px 3px 6px black'
+
+        guessSend.addEventListener('click', guessCheck);
+        
+
+        function randomNumberGenerate() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+
+        function guessCheck() {
+            var userGuess = Number(guessField.value);
+            if (guessCount === 1) {
+                myGuesses.textContent = 'Palpites anteriores: ';
+            }
+
+            myGuesses.textContent += userGuess + ' ';
+            guessCount += 1;
+            guessField.value = '';
+            guessField.focus();
+
+            if (userGuess === myNumber) {
+                lastResult.textContent = 'Parabéns você acertou! o número é : ' + myNumber + '.'
+                lastResult.style.backgroundColor = 'green';
+                lowOrHigth.textContent = '';
+                configGameEnded();
+
+            } else if (guessCount === 10) {
+                lastResult.textContent = '!!!FIM DO JOGO !!!';
+                lowOrHigth = '';
+                configGameEnded();
+            } else {
+                lastResult.textContent = 'Errado!';
+                lastResult.style.backgroundColor = 'red';
+
+                if (userGuess < myNumber) {
+                    lowOrHigth.textContent = 'Seu palpite está baixo!'
+                } else {
+                    lowOrHigth.textContent = 'Seu palpite está alto!'
+                }
+
+            }
+
+        }
+
+        function configGameEnded() {
+            guessField.disabled = true;
+            guessSend.disabled = true;
+            startButton = document.createElement('button');
+            startButton.textContent = 'Iniciar novo jogo!';
+            document.body.appendChild(startButton);
+            startButton.addEventListener('click', restartGame)
+
+        }
+
+        function restartGame() {
+
+            guessCount = 1;
+
+            var restartAll = document.querySelectorAll('.guessNumberGame p');
+
+            for (var i = 0; i < restartAll.length; i++) {
+                console.log(restartAll[i].nodeType)
+                restartAll[i].textContent = '';
+            }
+
+            startButton.parentNode.removeChild(startButton);
+
+            guessField.disabled = false;
+            guessSend.disabled = false;
+            guessField.disabled = false;
+            guessField.value = '';
+            guessField.focus();
+
+            lastResult.style.backgroundColor = 'white';
+
+            myNumber = randomNumberGenerate();
+
+
+        }
+
+        //guessSend.addEventListener('click', guessCheck);
+
+
+
+    </script>
+
+</body>
+
+</html>
