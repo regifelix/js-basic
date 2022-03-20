@@ -18,7 +18,7 @@
 
         <label for="quessField">Digite seu palpite:</label>
         <input type="text" id="guessField" class="guessField" \>
-        <input type="submit" value="Enviar" class="guessSend" >
+        <input type="submit" value="Enviar" class="guessSend">
     </div>
     <script>
         var myNumber = randomNumberGenerate();
@@ -35,12 +35,12 @@
         guessField.focus();
 
         guessField.style.backgroundColor = 'yellow';
-        guessField.style.fontSize = '200%';
-        guessField.style.padding = '10px';
+        guessField.style.fontSize = '100%';
+        guessField.style.padding = '5px';
         guessField.style.boxShadow = '3px 3px 6px black'
 
         guessSend.addEventListener('click', guessCheck);
-        
+
 
         function randomNumberGenerate() {
             return Math.floor(Math.random() * 100) + 1;
@@ -118,6 +118,17 @@
         }
 
         //guessSend.addEventListener('click', guessCheck);
+
+        // Execute a function when the user releases a key on the keyboard
+        guessField.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                guessSend.click();
+            }
+        });
 
 
 
