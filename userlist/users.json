@@ -1,4 +1,12 @@
 [{
+    "username": "regifelix",
+    "firstName": "Reginaldo",
+    "lastName": "Donizete Felix",
+    "gender": "Male",
+    "profileURL": "img/male.png",
+    "email": "regifelix@gmail.com"
+},
+{
     "username": "john",
     "firstName": "John",
     "lastName": "Doe",
